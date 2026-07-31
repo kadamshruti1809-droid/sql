@@ -1,6 +1,6 @@
-create database	Employee;
-use Employee;
-CREATE TABLE Employee (
+create database	Emp;
+use Emp;
+CREATE TABLE Emp(
 EmployeeId INT PRIMARY KEY,
 FullName VARCHAR(45) NOT NULL,
 Department VARCHAR(45) NOT NULL,
@@ -94,3 +94,52 @@ alter table Employee add Serial_no int first;
 alter table Employee add Title varchar(5) after EmployeeId;
 alter table employee drop location;
 alter table Employee drop Serial_no,drop Title;
+
+select *from emp;
+alter table emp add Title varchar(50);
+update emp set title="Mr" ;
+update emp set title="Mrs. " where gender = "female";
+update emp set salary=55000 where fullname= "Mary Smith";
+delete from emp where employeeId= 1010;
+select *from emp order by fullname desc;
+select *from emp order by EmployeeId desc;
+-- there are four clause in sql--
+-- WHERE GROUP BY HAVING ORDER--
+
+-- LIMIT COMMAND --
+select * from emp order by fullname limit 3;
+SELECT * from emp limit 2,5;
+SELECT * from emp limit 5 offset 2;
+select *from emp where employeeid % 2 =0;
+select * from emp where salary>50000;
+select fullname,salary,(salary*0.05) as bonus from emp;
+select min(salary) from emp;
+select max(salary) from emp;
+select avg(salary) from emp;
+select sum(salary) from emp;
+select *from projects where employeeId is Null;
+select* from projects where employeeId is not null;
+-- group by--
+select *from projects;
+#count
+select dept,count(dept) from emp group by dept;
+select salary,count(salary) from emp group by salary;
+select dept,count(salary) from emp group by dept;
+select dept,count(*) from emp group by dept;
+# sum
+
+select dept,sum(salary) from emp group by dept;
+select gender,count(*)from emp group by gender;
+# avg
+select dept,avg(salary) from emp group by dept;
+
+select truncate (avg(age),0) from emp;
+
+select truncate (123.45676543,-2);
+select truncate (123.45676543,0);
+
+select dept ,truncate (avg(age),0) from emp group by dept;
+
+
+
+
