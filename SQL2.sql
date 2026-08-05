@@ -139,7 +139,54 @@ select truncate (123.45676543,-2);
 select truncate (123.45676543,0);
 
 select dept ,truncate (avg(age),0) from emp group by dept;
+use emp;
+select distinct dept from emp;
+select	distinct gender from emp;
+show tables	; 
+use employee;
+select distinct dept from emp;
+select	distinct gender from emp;
+select distinct dept, gender from emp;
+select * from employee where age not in (23,28);
+select *from employee where age in (23,28);
+select* from employee;
+select	* from employee	where salary between 40000 and 60000;
 
+-- show me all the records of emplys ,whose age is either 25 or 28
+select	* from employee	where age between 25 and 28;
+select * from employee where	employeeid in (1004,1007, 1003,1010);
+select * from employee where employeeid not in (1006,1005);
+select * from employee  where fullname like "p%" ;
+select * from employee  where fullname like "%y" ;
+select * from employee  where fullname like "%i%" ;
+select * from employee  where fullname like "_i%" ;
+select * from employee  where fullname like "__u%" ;
+select * from employee  where fullname like "%n___" ;
+select * from employee  where fullname like "%n__" ;
+select * from employee  where fullname not like "%n__" ;
+select * from employee  where fullname not like "p%" ;
+select *from projects;
+select* from projects where employeeid is null;
+select* from projects where employeeid is not null;
+select department from employee	group by department ;
+select department, count(*) from employee	group by department ;
 
+#HAVING CLAUSE
+select department, count(*) from employee	group by department HAVING COUNT(*)>3 ;
+select department, count(*) from employee	group by department HAVING COUNT(*)=2 ;
+select GENDER, count(*) from employee	group by GENDER HAVING COUNT(*)=2 ;
+SELECT GENDER ,SUM(SALARY) FROM employee group by GENDER;
+SELECT GENDER ,SUM(SALARY) FROM employee GROUP BY GENDER;
 
+select* from address;
+select state ,count(*) from address group by state having count(*);
+select city ,count(*) from address group by city;
+select city ,count(*) from address group by city having count(*)>1;
+select * from projects;
+select datediff(Enddate,startdate) as duration from projects;
+select datediff(Enddate,startdate) as duration ,count(*)from projects group by datediff(Enddate,startdate) having count(*)>=2;
+select datediff(Enddate,startdate) as duration ,count(*)from projects group by datediff(Enddate,startdate);
+select datediff(Enddate,startdate) as duration ,count(*)from projects
+where employeeid>1004
+group by datediff(Enddate,startdate) having count(*)>=2;
 
