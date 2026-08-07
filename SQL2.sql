@@ -190,3 +190,61 @@ select datediff(Enddate,startdate) as duration ,count(*)from projects
 where employeeid>1004
 group by datediff(Enddate,startdate) having count(*)>=2;
 
+#primary key
+create database cccw;
+use cccw;
+create table TABLE2
+(i03 int unique not null ,
+I02  int unique not null,
+I03  int unique not null);
+desc table2;
+# check constaints
+create table voter_list
+(voter_id int,
+names varchar(30),
+age int check (age>=18));
+desc voter_list;
+select* from Voter_list;
+insert into voter_list values
+(20067, "anuja patil",18);
+desc voter_list;
+use company;
+select* from projects where employeeId is not null;
+create table voter_list
+(voter_id int,
+names varchar(30),
+age int check (age>=18));
+desc voter_list;
+select* from Voter_list;
+insert into voter_list values
+(20067, "anuja patil",18);
+create table voter_list_2
+(voter_id int,
+names varchar(30),
+age int check (age>=18),
+email_id varchar (30) default"DUMMY@gmail.com");
+desc voter_list_2;
+select* from Voter_list_2;
+insert into voter_list_2 values
+(20067, "anuja patil",18, "anujap@gmail.com"),
+(20068, "shruti kadam",18, default);
+
+use employee; 
+show tables;
+select *,concat (fullname,"_",employeeid)as specific_code from emp;
+select concat ("good","morning")as remarks;
+
+select fullname, lower(fullname) from emp;
+select fullname,upper(fullname)from emp;
+select fullname, replace(fullname,"mohanty","kulkarni") as new_name from emp;
+select* from employee;
+update employee set fullname="Submit Kulkarni"where employeeid=1008;
+update employee set fullname="Anurag Kulkarni"where employeeid=1006;
+select length('good morning');
+select length(fullname) from emp;
+select substring("mary smith", 2,3);
+select fullname, substring( fullname ,2,3) as partiall,
+length(substring(fullname,2 ,3)) as length from emp;
+
+
+
