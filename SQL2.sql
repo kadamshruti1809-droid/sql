@@ -245,6 +245,51 @@ select length(fullname) from emp;
 select substring("mary smith", 2,3);
 select fullname, substring( fullname ,2,3) as partiall,
 length(substring(fullname,2 ,3)) as length from emp;
+-- trim function rtrim l trim function 
+-- reverse is function where we can pass string.
 
+select fullname ,reverse(fullname) from emp;
+select reverse("Anurag");
+select abs (-45679);
+select abs (+45679);
+select abs(datediff(startdate,enddate))
+as duration from projects;
+select datediff(enddate,startdate)
+as duration from projects;
+#% modulus
+select mod(12,7);
+select mod(14,6);
+-- floor celling function
+select floor(11.5);
+select ceil(11.5);
+select truncate(14.562456,4);
+select truncate(14.562456,0);
+select exp(2);
+select power(4,2);
+select power(13,2);
+select sqrt(169);
+select curdate();# it gives current date
+select now();
+select sysdate();
+select last_day(now());
+select last_day("2025-02-22");
+# date format
+select	date_format(now(),"%b");# it gives the month Aug 
+select	date_format(now(),"%M");# it gives full month name 
+select	date_format(now(),"%y");# will print only the year like 26 only
+select	date_format(now(),"%Y");# it will print the 2026 
+select	date_format(now(),"%a %D -%b");
+select	date_format(now(),"%a %D -%M %Y");
+select	date_format(" 2026-10-24", "%D -%M %Y %W")as date;
+select abs(datediff("2005-10-24",now()));
 
+select	 month(now());
+select year(now());
+select avg (salary )from employee where department ="IT";
+select avg (salary )from emp where dept ="IT";
+select count(*) from employee;
+select count(salary) from employee where gender ="male";
+select max(salary) from employee where gender ="male";
+select min(salary) from employee where gender ="male";
+select avg(salary) from employee where gender ="male";
 
