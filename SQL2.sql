@@ -292,4 +292,89 @@ select count(salary) from employee where gender ="male";
 select max(salary) from employee where gender ="male";
 select min(salary) from employee where gender ="male";
 select avg(salary) from employee where gender ="male";
+use employee;
+show tables;
+select employee.employeeid, fullname, city   from 
+employee
+left join 
+address
+ on employee.employeeid = address.employeeid;
+ select * from employee;
+select projects.employeeid, projectname, city   from 
+projects
+left join 
+address
+ on projects.employeeid = address.employeeid;
+ select * from projects;
+ 
+ select * from address;
+ select * from employeee;
+ select employee.employeeid, fullname, city   from 
+address
+right join 
+employee
+ on employee.employeeid = address.employeeid;
+select  employee.EmployeeId,fullname, ProjectName, abs(datediff(startdate,enddate)) as duration from 
+employee 
+left join
+projects
+on employee.employeeid = projects.employeeid;
+
+select employee.employeeid, fullname, projectname, startdate
+from
+employee
+left join
+projects
+on employee.employeeid = projects.employeeid;
+
+select  fullname, projectname ,state
+ from employee as E
+left join
+projects as P
+on E.employeeid = P.employeeid
+
+left join
+address as A
+on 
+A.employeeID = P.employeeid;
+select  fullname, projectname ,state
+ from employee as E
+left join
+projects as P
+on E.employeeid = P.employeeid
+
+left join
+address as A
+on 
+A.employeeID = P.employeeid;
+
+select  fullname, projectname ,state
+ from employee as E
+left join
+projects as P
+on E.employeeid = P.employeeid
+
+right join
+address as A
+on 
+A.employeeID = P.employeeid;
+
+select  fullname, projectname ,state
+ from employee as E
+left join
+projects as P
+on E.employeeid = P.employeeid
+union
+
+select   fullname, projectname ,state
+ from employee as E
+left join
+projects as P
+on E.employeeid = P.employeeid
+#empid fullname dept projectname duration
+#gender state city country
+
+
+
+
 
