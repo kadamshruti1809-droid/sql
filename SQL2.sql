@@ -306,7 +306,6 @@ left join
 address
  on projects.employeeid = address.employeeid;
  select * from projects;
- 
  select * from address;
  select * from employeee;
  select employee.employeeid, fullname, city   from 
@@ -359,6 +358,7 @@ address as A
 on 
 A.employeeID = P.employeeid;
 
+
 select  fullname, projectname ,state
  from employee as E
 left join
@@ -370,11 +370,71 @@ select   fullname, projectname ,state
  from employee as E
 left join
 projects as P
-on E.employeeid = P.employeeid
+on E.employeeid = P.employeeid)
+
+
 #empid fullname dept projectname duration
 #gender state city country
 
 
+select employee.employeeid, fullname, dept, projectname,abs(datediff(enddate,startdate))as duration ,gender, state, city ,country 
+from employee as E
+left join 
+projects as P
+on E.employeeid = P.employeeid
+
+right join
+address as A
+on A.employeeid = P.employeeid;
+
+SELECT 
+    E.employeeid,
+    fullname,
+    department,
+    projectname,
+    ABS(DATEDIFF(P.enddate, P.startdate)) AS duration,
+    gender,
+    state,
+    city,
+    country
+FROM
+    employee AS E
+        LEFT JOIN
+    projects AS P
+    ON E.employeeid = P.employeeid
+        RIGHT JOIN
+    address AS A 
+    ON A.employeeid = P.employeeid;			
+
+-- sub queries
+use employee;
+select * from employee;
+select department from employee where employeeid= 1001;
+select fullname , department from employee where department = "1001";
+select age from employee where employeeid =1001;
+select fullname , age from employee where age = 25;
+
+show tables;
+select * from projects;
+select  ProjectName, abs(datediff(enddate,startdate)) as duration from projects where employeeid=1004;
 
 
+ select  ProjectName, abs(datediff(enddate,startdate)) as duration from projects
+ where datediff(enddate,startdate)=
+ (select datediff(enddate,startdate) from projects where employeeid=1004);
+ select max(salary)  from employee;
+ 
+ 
+ select fullname , salary from employee
+ where  salary =(select max(salary)  from employee);
+ 
+ select max(salary)  from employee; 
+select fullname , salary from employee 
+ where salary =(select max(salary) from employee where salary<(select max(salary) from employee));
+ 
+ 
+# highest amount koni koni 1 customer id 1 ni magitalaytech magavlay like keyboard koni koni magavlay
+
+ 
+ 
 
