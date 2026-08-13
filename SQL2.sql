@@ -434,7 +434,40 @@ select fullname , salary from employee
  
  
 # highest amount koni koni 1 customer id 1 ni magitalaytech magavlay like keyboard koni koni magavlay
+# multiple subquer using in operator
 
- 
- 
+use employee;
+select * from employee;
+select salary from employee
+where fullname = "Mary Smith"
+or 
+fullname = "james Brown";
+select fullname , salary from employee 
+where salary in ( select salary from employee # multiple rows we can't use operators  instead of operators we used IN
+where fullname = "Mary Smith"
+or 
+fullname = "james Brown")
+and fullname  not in ("Mary Smith" ,"James Brown");
+-- subqueris using any or 
+select * from employee
+where age < all  ( select age  from employee where fullname in ("Mary Smith","Anurag MOhanty")) ;                                     # find names of emplyees whose age less than mary and anurag
 
+ select * from employee
+ where 
+ age<any (select age from employee where fullname ="Anurag Kulkarni")
+ or 
+ age <(select age from employee where fullname ="Mary Smith");
+ 
+select * from employee
+ where  age< all (select age from employee where fullname ="james Brown")
+ and
+ age <(select age from employee where fullname ="Mary Smith");
+ select * from employee
+ where 
+ age>any (select age from employee where fullname ="Anurag Kulkarni")
+ or 
+ age <(select age from employee where fullname ="Mary Smith");
+ 
+# all
+select * from employee
+where age < all  ( select age  from employee where fullname in ("Mary Smith","james Brown")) ;      
