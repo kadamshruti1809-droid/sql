@@ -471,3 +471,86 @@ select * from employee
 # all
 select * from employee
 where age < all  ( select age  from employee where fullname in ("Mary Smith","james Brown")) ;      
+alter table employee modify department varchar (37);
+desc employee;
+select* from employee;
+update employee set salary = salary +10000 ;
+
+select department ,sum(salary) from employee where department="IT" group by department;
+
+select* from employee;
+
+select* from projects;
+create view my_join as
+select  E.employeeID, fullname, projectname
+from employee as E
+ left join
+projects as P
+on E.employeeID = P.employeeID;
+select*from my_join;
+use employee;
+select * from employee;
+-- case 
+
+select employeeid , fullname ,
+case
+when age > 26 then"senior"
+else "junior"
+ end as seniority 
+ from employee;
+select employeeid, fullname , salary,
+case 
+when salary > 60000 then "highly paid"
+else "under paid"
+end as salary_mode
+from employee; 
+
+-- increase the salary department wise
+update employee
+ set salary =case department 
+ when "IT " then   salary+ (salary* 0.15)
+ when "HR " then   salary +(salary* 0.10)
+ else salary + (salary * 0.5)
+ end ;
+ select *from employee;
+ 
+ update employee set salary = 45000 where department = "IT";
+update employee set salary = 50000 where department = "HR"; 
+update employee set salary = 55000 where department = "finance";
+
+create  database db_fk ; 
+use db_fk;
+CREATE TABLE Employee (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Age INT
+);
+CREATE TABLE projects (
+    Project_ID INT PRIMARY KEY,
+    Project_Name VARCHAR(100) NOT NULL,
+    Employee_ID INT,
+-- Defining Foreign Key and Cascading Behavior 
+FOREIGN KEY (Employee_ID) 
+REFERENCES Employee(ID) 
+ON UPDATE CASCADE 
+ON DELETE CASCADE );
+
+ insert into employee values 
+ (101 , "Affan khan" , 22),
+ (102 , "sujal chavan" , 22);
+ 
+INSERT INTO projects (Project_ID, Project_Name, Employee_ID) VALUES
+(1, 'Website Redesign', 101),
+(2, 'Cloud Migration', 101),
+(3, 'Mobile App', 102);
+select * from projects;
+
+# on update or On delete is used to delete and update database from all connetcted tables
+# on update restrict
+desc projects;
+
+update employee set ID = 200 where ID= 101 ;
+select * from employee;
+delete from employee where id = 102;
+
+
