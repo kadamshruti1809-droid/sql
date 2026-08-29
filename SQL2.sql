@@ -553,4 +553,67 @@ update employee set ID = 200 where ID= 101 ;
 select * from employee;
 delete from employee where id = 102;
 
+-- this query assigns a unique rank to each employee
+
+use employee;
+select* from employee;
+select	employeeID, fullname ,department, gender, salary ,
+row_number() OVER (PARTITION BY GENDER)
+AS RANKINDEPARTMENT
+FROM EMPLOYEE;
+-- WHAT IS DIFF BETWEEN RANK AND DENSE RANK
+
+-- dense rank
+-- within their department , ordered by salary in descending order.
+select	employeeID, fullname ,department, gender, salary ,
+rank() OVER  (order by Salary asc) as OverallSalaryRank
+FROM EMPLOYEE;
+
+select	employeeID, fullname ,department, gender, salary ,
+ dense_rank() OVER  (order by Salary asc) as OverallSalaryRank
+FROM EMPLOYEE;
+
+select employeeID ,fullname, department, salary ,gender ,
+sum(salary) over (partition by department) as 
+department_wise_totalSalary
+from employee;
+ 
+ use window_function;
+ select
+ EmployeeId,fullname , department , salary ,
+ max(salary) over (partition by department ) as DepartmentAverageSalary
+ from 
+ employee
+ where salary <(select max(salary) from employee);
+ 
+ select 
+ fullname,department,
+ count(*) over (partition by department) as department_count
+ from employee;
+ 
+-- lag 
+select employeeId , fullname ,department , age , salary,
+lag (salary,1) over (order by employeeID) as 1st_Youngers_sal
+from employee;
+
+select 
+employeeID, Fullname , Department Age , Salary,
+lead (salary, 2) over (order by employeeID ) as 1st_Younger_Sal
+from employee;
+
+select employeeId , fullname ,department , age , salary,
+lag (salary,1) over (order by employeeID) as 1st_Youngers_sal ,
+lead (salary, 2) over (order by employeeID ) as 1st_Younger_Sal
+from employee; 
+
+select 
+employeeId , fullname, department,gender ,age ,
+avg(age) over (partition by gender) as Average
+from employee;
+
+select 
+fullname ,  gender , salary,department	,
+avg(age) over (partition by department ) as average
+from employee;
+
 
