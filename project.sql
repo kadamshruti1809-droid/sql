@@ -2404,3 +2404,22 @@ ALTER TABLE fact_sales
 ADD CONSTRAINT fk_target
 FOREIGN KEY (target_id)
 REFERENCES dim_target(target_id);
+select * from dim_customer;
+select * from dim_customer where customer_id = 20;
+update dim_customer set customer_name= "shruti" where customer_id=20;
+select distinct city = "Pune" from dim_customer;
+select customer_id , customer_name ,state from dim_customer where city="goa";
+select *from dim_customer where customer_name like '_a%';
+select * from dim_customer where city is null;
+select * from dim_customer
+limit 2,5;
+select * from dim_customer order by customer_name asc;
+select customer_id as id ,customer_name as name from dim_customer;
+select curdate();
+select now();
+select * from dim_date;
+select * from dim_product;
+select category, count(sub_category) from dim_product group by category;
+select * from dim_target;
+select category ,sum(tARGET) from dim_target group by category;
+select category ,sum(tARGET) from dim_target group by category having sum(target)>130000;
