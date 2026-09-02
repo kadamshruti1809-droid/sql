@@ -3,7 +3,6 @@
 -- ============================================
 
 CREATE DATABASE ecommerce_analysis;
-
 USE ecommerce_analysis;
 
 
@@ -492,7 +491,7 @@ INSERT INTO dim_customer (customer_id, customer_name, state, city) VALUES
     (400, 'Kartikay', 'Bihar', 'Patna'),
     (401, 'Ankita', 'Maharashtra', 'Mumbai');
     desc dim_customer;
-
+select * from dim_customer;
 
 -- 2. dim_date
 INSERT INTO dim_date (date_id, order_date, day, month, year) VALUES
@@ -804,6 +803,7 @@ INSERT INTO dim_date (date_id, order_date, day, month, year) VALUES
     (20190330, '2019-03-30', 30, 3, 2019),
     (20190331, '2019-03-31', 31, 3, 2019);
 desc dim_date;
+select * from dim_date;
 -- 3. dim_product
 INSERT INTO dim_product (product_id, category, sub_category) VALUES
     (1, 'Furniture', 'Bookcases'),
@@ -823,6 +823,7 @@ INSERT INTO dim_product (product_id, category, sub_category) VALUES
     (15, 'Electronics', 'Accessories'),
     (16, 'Furniture', 'Furnishings'),
     (17, 'Clothing', 'Skirt');
+    SELECT * FROM DIM_PRODUCT;
 desc dim_product;
 -- 4. dim_target
 INSERT INTO dim_target (target_month, category, target)
@@ -2371,6 +2372,7 @@ INSERT INTO fact_sales (order_id, customer_id, date_id, product_id, amount, prof
     ('B-26100', 27, 20190331, 10, 34.00, 10.00, 2),
     ('B-26100', 27, 20190331, 11, 72.00, 16.00, 2);
 desc fact_sales;
+select * from fact_sales;
 SELECT COUNT(*) FROM dim_customer;
 SELECT COUNT(*) FROM dim_date;
 SELECT COUNT(*) FROM dim_product;
@@ -2388,7 +2390,11 @@ SHOW CREATE TABLE fact_sales;
 FOREIGN KEY (product_id) REFERENCES dim_product (product_id)
 FOREIGN KEY (customer_id) REFERENCES dim_customer (customer_id)
 FOREIGN KEY (date_id) REFERENCES dim_date (date_id);
-SHOW INDEX FROM fact_sales;
+desc dim_customer;
+desc fact_sales;
+desc dim_product;
+desc dim_target;
+desc dim_date;
 SELECT
     CONSTRAINT_NAME,
     COLUMN_NAME,
@@ -2418,8 +2424,18 @@ select customer_id as id ,customer_name as name from dim_customer;
 select curdate();
 select now();
 select * from dim_date;
+select* from fact_sales;
 select * from dim_product;
 select category, count(sub_category) from dim_product group by category;
 select * from dim_target;
 select category ,sum(tARGET) from dim_target group by category;
 select category ,sum(tARGET) from dim_target group by category having sum(target)>130000;
+use ecommerce_analysis;
+select *from dim_product;
+insert into dim_customer (customer_id,customer_name, state, city) values (403, "padma","maharshtra","Mahad");
+select * from dim_customer;
+select * from dim_customer where city = "Mumbai";
+select * from fact_sales where amount > 1000; 
+select customer_name ,city from dim_customer order by customer_name asc; 
+#Display products alphabetically by category.
+select * from dim_product order by category asc;
