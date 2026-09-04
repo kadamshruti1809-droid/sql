@@ -2439,3 +2439,17 @@ select * from fact_sales where amount > 1000;
 select customer_name ,city from dim_customer order by customer_name asc; 
 #Display products alphabetically by category.
 select * from dim_product order by category asc;
+select * from fact_sales order by amount desc;
+Select* from fact_sales order by  amount asc;
+select *from fact_sales order by amount asc limit 10;
+select sum(amount) as total_sales from fact_sales;
+SELECT year, COUNT(*) AS total_days
+FROM dim_date
+GROUP BY year;
+select year , count(*) as total_days from dim_date group by year ;
+SELECT *
+FROM dim_target
+ORDER BY target_value DESC
+LIMIT 1;
+select* from dim_target;
+select * from dim_target order by target desc limit 1;
