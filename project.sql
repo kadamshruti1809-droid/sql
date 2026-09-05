@@ -2453,3 +2453,38 @@ ORDER BY target_value DESC
 LIMIT 1;
 select* from dim_target;
 select * from dim_target order by target desc limit 1;
+select category, count(*) as total_products
+from dim_product group by category;
+select avg(target) as average_target
+from dim_target;
+select sum(target) as target_value from dim_target;
+select max(amount )as highest_value
+from fact_sales;
+SELECT * FROM fact_sales;
+ ORDER BY amount DESC LIMIT 10;
+SELECT product_id, MAX(amount) AS highest_sale
+FROM fact_sales
+GROUP BY product_id
+ORDER BY highest_sale DESC;
+use ecommerce_analysis;
+select product_id , max(amount) as highest_sales
+from fact_sales
+group by product_id
+order by highest_sales;
+SELECT date_id, MAX(amount) AS highest_sale
+FROM fact_sales
+GROUP BY date_id
+ORDER BY highest_sale DESC;
+
+select *from  dim_product;
+SELECT category, COUNT(product_id) AS total_product
+FROM dim_product
+GROUP BY category
+ORDER BY total_products DESC;
+update fact_sales
+set amount =500
+where product_id = 1;
+
+select * from fact_sales;
+select * from dim_product 
+where category like "F%";
