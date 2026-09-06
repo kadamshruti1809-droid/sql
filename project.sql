@@ -2488,3 +2488,42 @@ where product_id = 1;
 select * from fact_sales;
 select * from dim_product 
 where category like "F%";
+
+-- windows and views
+
+SELECT
+    product_id,
+    amount,
+    RANK() OVER (ORDER BY amount DESC) AS sales_rank
+FROM fact_sales;
+use ecommerce_analysis;
+select product_id,amount, rank() over (order by amount desc) as sales_rank 
+from fact_sales;
+SELECT
+    p.category,
+    p.product_id,
+    SUM(f.amount) AS total_sales,
+    RANK() OVER (
+        PARTITION BY p.category
+        ORDER BY SUM(f.amount) DESC
+    ) AS category_rank
+FROM fact_sales f
+JOIN dim_product p
+    ON f.product_id = p.product_id
+GROUP BY
+    p.category,
+    p.product_id;
+    select p.category, p.product_id,sum(f.amount)as total_sales, rank() over(partition by p.category order by sum(f.amount) desc ) as category_rank from fact_sales f
+ join dim_product p on f.product_id = p.product_id group by p.category, p.product_id;   
+ SELECT
+    d.date,
+    f.amount,
+    SUM(f.amount) OVER (
+        ORDER BY d.date
+    ) AS running_total
+FROM fact_sales f
+JOIN dim_date d
+    ON f.date_id = d.date_id;
+    select d.date_id ,f.amount ,sum(f.amount) over (order by d.date_id )
+    as total from fact_sales f join dim_date d on f.date_id = d.date_id;
+   select * from dim_date; 
