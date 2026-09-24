@@ -2527,3 +2527,165 @@ JOIN dim_date d
     select d.date_id ,f.amount ,sum(f.amount) over (order by d.date_id )
     as total from fact_sales f join dim_date d on f.date_id = d.date_id;
    select * from dim_date; 
+   use ecommerce_analysis;
+   select
+   f.sales_id,
+   f.product_id,
+   f.amount,
+   avg(f.amount) over( partition by f.product_id) 
+   as  avg_product_sales
+   from fact_sales f;
+   SELECT
+    sales_id,
+    profit,
+    DENSE_RANK() OVER (
+        ORDER BY profit DESC
+    ) AS profit_rank
+FROM fact_sales;
+select sales_id , profit, dense_rank() over( order by profit desc) as profit_rank
+from fact_sales;
+use ecommerce_analysis;
+-- window function 
+-- subquries
+show tables;
+select * from  dim_target;
+select * from dim_target where category in(select DISTINCT category from dim_target where category= 'furniture'); 
+CREATE VIEW sales_summary AS
+SELECT
+    sales_id,
+    customer_id,
+    product_id,
+    amount,
+    profit,
+    quantity
+FROM fact_sales;
+select * from sales_summary;
+select * from dim_product;
+show tables;
+create view target as select 
+target_id,
+target,
+category 
+from dim_target;
+select * from target;
+select* from fact_sales;
+use ecommerce_analysis;
+create view max_amount as select
+amount ,
+order_id,
+sales_id from fACT_SALES
+WHERE AMOUNT> 500;
+SELECT * FROM max_amount;
+-- subqueries
+
+show tables;
+select product_id,
+amount,
+profit
+from fact_sales
+where amount > (
+select avg(amount)
+from fact_sales
+);
+select * from fact_sales;
+select avg(amount)from fact_sales;
+select product_id, amount, profit from fact_sales where amount < (select avg(amount) from fact_sales);
+
+select * from fact_sales;
+select* from dim_customer;
+SELECT
+    c.customer_id,
+    c.customer_name,
+    p.product_id,
+    f.quantity,
+    f.amount
+FROM fact_sales f
+JOIN dim_customer c
+    ON f.customer_id = c.customer_id
+JOIN dim_product p
+    ON f.product_id = p.product_id;
+    SELECT customer_id,
+       customer_name
+FROM dim_customer
+WHERE customer_id IN (
+    SELECT customer_id ,quantity
+    FROM fact_sales
+);
+select product_id,
+amount,
+profit,
+quantity
+from fact_sales
+where amount = (
+select max(amount)
+from fact_sales
+);
+show tables;
+select* from fact_sales;
+SELECT order_id,
+       customer_id,
+       amount
+FROM fact_sales
+WHERE amount > (
+    SELECT AVG(amount)
+    FROM fact_sales
+);
+SELECT customer_id,
+       customer_name
+FROM dim_customer
+WHERE customer_id NOT IN (
+    SELECT customer_id
+    FROM fact_sales
+);
+SELECT product_id,
+       amount
+FROM fact_sales
+WHERE product_id IN (
+    SELECT product_id
+    FROM dim_product
+);
+select * from dim_target;
+SELECT c.customer_id,
+       c.customer_name
+FROM dim_customer as c
+WHERE EXISTS (
+    SELECT 1
+    FROM fact_sales as f
+    WHERE f.customer_id = c.customer_id
+      AND f.amount <1000
+);
+use ecommerce_analysis;
+select * from dim_customer;
+SELECT p1.product_id,
+       p1.product_name,
+       p1.category,
+       p1.price
+FROM Products p1
+WHERE p1.price > (
+    SELECT AVG(p2.price)
+    FROM Products p2
+    WHERE p2.category = p1.category
+);
+select * from dim_product;
+SELECT customer_id,
+       SUM(amount) AS total_spent
+FROM fact_sales
+GROUP BY customer_id
+HAVING SUM(amount) > (
+    SELECT AVG(customer_total)
+    FROM (
+        SELECT customer_id,
+               SUM(amount) AS customer_total
+        FROM fact_sales
+        GROUP BY customer_id
+    ) AS customer_summary
+);
+SELECT p2.product_id,
+       p2.category
+FROM dim_product as p2
+WHERE  (amount)> (
+    SELECT AVG(f.amount)
+    FROM fact_sales as f
+    WHERE p2.product_id = f .product_id
+);
+select * from fact_sales;
