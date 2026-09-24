@@ -2689,3 +2689,15 @@ WHERE  (amount)> (
     WHERE p2.product_id = f .product_id
 );
 select * from fact_sales;
+SELECT
+       p2.product_id,
+       p2.category,
+       f.amount
+FROM dim_product AS p2
+JOIN fact_sales AS f
+    ON p2.product_id = f.product_id
+WHERE f.amount > (
+    SELECT AVG(f2.amount)
+    FROM fact_sales AS f2
+    WHERE f2.product_id = p2.product_id
+);
